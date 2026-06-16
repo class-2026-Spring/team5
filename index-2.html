@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GYUL LOCAL — 제주의 감귤, 지역의 가치가 되다</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --citrus:   #E8870A;
+      --peel:     #F4A93A;
+      --cream:    #FBF6ED;
+      --green:    #2D5A27;
+      --green-lt: #4A7C42;
+      --bark:     #3B2A1A;
+      --bark-lt:  #6B4E33;
+      --mist:     #F0EBE3;
+      --white:    #FFFFFF;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body:    'Noto Sans KR', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--bark);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5vw;
+      background: rgba(251,246,237,0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(59,42,26,0.08);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: .04em;
+      color: var(--bark);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--citrus); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: .82rem; font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--bark-lt);
+      text-decoration: none; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--citrus); }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 5vw 7rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--bark);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 80% 40%, #5A3010 0%, var(--bark) 100%);
+    }
+    /* Decorative citrus ring */
+    .hero-ring {
+      position: absolute; right: 6vw; top: 50%;
+      transform: translateY(-50%);
+      width: min(42vw, 480px); aspect-ratio: 1;
+      border-radius: 50%;
+      border: 2px solid rgba(232,135,10,.25);
+      display: grid; place-items: center;
+    }
+    .hero-ring::before {
+      content: '';
+      width: 78%; aspect-ratio: 1; border-radius: 50%;
+      background: conic-gradient(from 0deg,
+        rgba(244,169,58,.18) 0%,
+        rgba(232,135,10,.55) 25%,
+        rgba(244,169,58,.18) 50%,
+        rgba(232,135,10,.55) 75%,
+        rgba(244,169,58,.18) 100%
+      );
+      animation: spin 18s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-ring-label {
+      position: absolute;
+      font-size: clamp(.65rem, 1.2vw, .85rem);
+      font-weight: 500; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--peel);
+      opacity: .7;
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+    }
+
+    .hero-eyebrow {
+      position: relative; z-index: 1;
+      font-size: .78rem; font-weight: 500; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--peel);
+      margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      position: relative; z-index: 1;
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 6.5vw, 5.5rem);
+      line-height: 1.1;
+      color: var(--white);
+      max-width: 680px;
+    }
+    .hero-title em { font-style: italic; color: var(--peel); }
+    .hero-sub {
+      position: relative; z-index: 1;
+      margin-top: 1.5rem;
+      font-size: clamp(.9rem, 1.4vw, 1.05rem);
+      color: rgba(255,255,255,.6);
+      max-width: 500px;
+      line-height: 1.8;
+    }
+    .hero-btns {
+      position: relative; z-index: 1;
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: .75rem 1.8rem;
+      border-radius: 2px;
+      font-size: .82rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; text-decoration: none;
+      cursor: pointer; transition: all .2s;
+    }
+    .btn-primary { background: var(--citrus); color: var(--white); }
+    .btn-primary:hover { background: var(--peel); }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,.35);
+      color: var(--white);
+    }
+    .btn-outline:hover { border-color: var(--peel); color: var(--peel); }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 5vw; }
+    section:nth-child(even) { background: var(--mist); }
+
+    .section-label {
+      font-size: .72rem; font-weight: 700; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--citrus);
+      margin-bottom: .6rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      line-height: 1.2;
+      color: var(--bark);
+      max-width: 560px;
+    }
+    .section-body {
+      margin-top: 1.2rem;
+      font-size: 1rem; color: var(--bark-lt);
+      max-width: 600px; line-height: 1.9;
+    }
+
+    /* ── ABOUT ── */
+    #about .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      margin-top: 3.5rem;
+    }
+    .highlight-box {
+      background: var(--bark);
+      color: var(--white);
+      padding: 2.2rem 2.5rem;
+      border-left: 4px solid var(--citrus);
+    }
+    .highlight-box p {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.25rem;
+      line-height: 1.6;
+    }
+
+    /* ── WHY GYUL ── */
+    #why .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .card {
+      background: var(--white);
+      padding: 2rem 1.8rem;
+      border-top: 3px solid var(--citrus);
+    }
+    .card-icon { font-size: 1.8rem; margin-bottom: .8rem; }
+    .card-title { font-weight: 700; margin-bottom: .4rem; font-size: .95rem; }
+    .card-desc { font-size: .88rem; color: var(--bark-lt); line-height: 1.75; }
+
+    /* ── PROCESS ── */
+    #process .steps {
+      display: flex;
+      gap: 0;
+      margin-top: 3.5rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+    }
+    .step {
+      flex: 1; min-width: 130px;
+      position: relative;
+      padding: 2rem 1.5rem 1.5rem;
+      background: var(--white);
+      text-align: center;
+    }
+    .step:not(:last-child)::after {
+      content: '→';
+      position: absolute; right: -14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--citrus); font-size: 1.2rem; z-index: 1;
+    }
+    .step-num {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 2rem; color: var(--citrus); line-height: 1;
+      margin-bottom: .5rem;
+    }
+    .step-name { font-size: .82rem; font-weight: 700; color: var(--bark); }
+
+    /* ── PRODUCT ── */
+    #product .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+    .tag-list { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+    .tag {
+      display: inline-block;
+      padding: .35rem .9rem;
+      background: var(--white);
+      border: 1.5px solid var(--citrus);
+      font-size: .78rem; font-weight: 700; letter-spacing: .07em;
+      color: var(--citrus);
+    }
+    .comparison-table { width: 100%; border-collapse: collapse; }
+    .comparison-table th, .comparison-table td {
+      padding: .9rem 1rem;
+      text-align: left;
+      font-size: .88rem;
+      border-bottom: 1px solid rgba(59,42,26,.1);
+    }
+    .comparison-table th { font-weight: 700; color: var(--bark); background: var(--mist); }
+    .comparison-table .good { color: var(--green); font-weight: 700; }
+    .comparison-table .bad  { color: #B04020; }
+
+    /* ── CHALLENGE ── */
+    #challenge .chal-list {
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    .chal-item {
+      padding: 1.5rem 1.5rem 1.5rem 0;
+      border-top: 2px solid var(--bark-lt);
+    }
+    .chal-item h4 { font-size: .9rem; font-weight: 700; margin-bottom: .4rem; }
+    .chal-item p  { font-size: .84rem; color: var(--bark-lt); }
+
+    /* ── IMPACT ── */
+    #impact .impact-nums {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .impact-item {
+      border-left: 3px solid var(--citrus);
+      padding-left: 1.2rem;
+    }
+    .impact-label {
+      font-size: .78rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--citrus);
+      margin-bottom: .4rem;
+    }
+    .impact-desc { font-size: .9rem; color: var(--bark); line-height: 1.6; }
+
+    /* ── FUTURE ── */
+    #future .future-list { margin-top: 2rem; list-style: none; }
+    #future .future-list li {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(59,42,26,.1);
+      font-size: .92rem; color: var(--bark-lt);
+    }
+    #future .future-list li::before {
+      content: '→';
+      color: var(--citrus); font-weight: 700; flex-shrink: 0;
+      margin-top: .05em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bark);
+      color: rgba(255,255,255,.5);
+      text-align: center;
+      padding: 2.5rem 5vw;
+      font-size: .8rem;
+    }
+    footer strong { color: var(--peel); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      #about .about-grid,
+      #product .product-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-ring { display: none; }
+      .steps { flex-wrap: wrap; }
+      .step:not(:last-child)::after { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-ring::before { animation: none; }
+    }
+
+    /* scroll-reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">GYUL<span>.</span>LOCAL</a>
+  <ul class="nav-links">
+    <li><a href="#about">소개</a></li>
+    <li><a href="#why">왜 감귤</a></li>
+    <li><a href="#process">제작 과정</a></li>
+    <li><a href="#product">제품</a></li>
+    <li><a href="#impact">임팩트</a></li>
+    <li><a href="#future">전망</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-ring">
+    <span class="hero-ring-label">Jeju Citrus</span>
+  </div>
+  <p class="hero-eyebrow">Eco Packaging Project · 제주국립대학교</p>
+  <h1 class="hero-title">제주의 감귤,<br /><em>지역의 가치</em>가 되다</h1>
+  <p class="hero-sub">버려지는 감귤 부산물을 활용해 친환경 완충재를 만들고<br />제주 지역 순환경제의 가능성을 탐색하는 프로젝트입니다.</p>
+  <div class="hero-btns">
+    <a href="#about" class="btn btn-primary">프로젝트 소개</a>
+    <a href="#process" class="btn btn-outline">제작 과정 보기</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <p class="section-label">About</p>
+    <h2 class="section-title">감귤 부산물, 문제이자 기회입니다</h2>
+    <p class="section-body">제주도는 전국 최대 감귤 생산지로 매년 대량의 감귤 부산물이 발생합니다. 그러나 대부분은 폐기되거나 제한적으로만 활용되며, 처리 과정에서 추가 비용도 발생합니다. 한편 스티로폼·플라스틱 완충재 사용 증가로 환경오염 문제도 심화되고 있습니다.</p>
+  </div>
+  <div class="about-grid reveal">
+    <div>
+      <p style="font-size:.88rem; color:var(--bark-lt); line-height:2;">
+        감귤 껍질은 섬유질과 펙틴 성분을 포함해 충격 흡수 소재로서 잠재력을 가집니다. 지역 자원을 지역 내에서 다시 순환시키는 것, 그것이 GYUL LOCAL이 던지는 질문입니다.
+      </p>
+    </div>
+    <div class="highlight-box">
+      <p>"버려지는 감귤 부산물을 새로운 자원으로 활용할 수 없을까?"</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY GYUL -->
+<section id="why">
+  <div class="reveal">
+    <p class="section-label">Why Gyul</p>
+    <h2 class="section-title">감귤을 선택한 세 가지 이유</h2>
+  </div>
+  <div class="cards reveal">
+    <div class="card">
+      <div class="card-icon">🍊</div>
+      <p class="card-title">풍부한 현지 공급</p>
+      <p class="card-desc">제주에서 쉽게 확보 가능한 자원으로, 원료 수급의 안정성이 높습니다.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌿</div>
+      <p class="card-title">우수한 소재 특성</p>
+      <p class="card-desc">감귤 껍질의 섬유질과 펙틴 성분은 완충재 소재로 유망합니다.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <p class="card-title">지역 순환경제 실현</p>
+      <p class="card-desc">제주 지역성과 연결된 자원으로 순환경제 실현 가능성이 높습니다.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">♻️</div>
+      <p class="card-title">생분해 가능</p>
+      <p class="card-desc">사용 후 자연 분해되어 스티로폼 폐기물 문제를 근본적으로 해소합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="reveal">
+    <p class="section-label">Process</p>
+    <h2 class="section-title">감귤 껍질에서 완충재까지</h2>
+    <p class="section-body">수집부터 완성까지, 7단계 제작 공정을 통해 폐자원을 친환경 완충재로 변환합니다.</p>
+  </div>
+  <div class="steps reveal">
+    <div class="step"><span class="step-num">01</span><span class="step-name">껍질 수집</span></div>
+    <div class="step"><span class="step-num">02</span><span class="step-name">건조</span></div>
+    <div class="step"><span class="step-num">03</span><span class="step-name">분쇄</span></div>
+    <div class="step"><span class="step-num">04</span><span class="step-name">재료 혼합</span></div>
+    <div class="step"><span class="step-num">05</span><span class="step-name">성형</span></div>
+    <div class="step"><span class="step-num">06</span><span class="step-name">압착 및 건조</span></div>
+    <div class="step"><span class="step-num">07</span><span class="step-name">완성</span></div>
+  </div>
+</section>
+
+<!-- PRODUCT -->
+<section id="product">
+  <div class="reveal">
+    <p class="section-label">Product</p>
+    <h2 class="section-title">감귤 완충재의 특성</h2>
+  </div>
+  <div class="product-grid reveal">
+    <div>
+      <p class="section-body">감귤 부산물을 활용한 친환경 완충재로, 기본적인 충격 흡수 성능과 함께 완전한 생분해가 가능합니다.</p>
+      <div class="tag-list">
+        <span class="tag">생분해 가능</span>
+        <span class="tag">친환경 소재</span>
+        <span class="tag">충격 흡수</span>
+        <span class="tag">감귤 부산물 활용</span>
+        <span class="tag">제주 지역 특화</span>
+      </div>
+    </div>
+    <div>
+      <p class="section-label" style="margin-bottom:1rem;">스티로폼과 비교</p>
+      <table class="comparison-table">
+        <thead>
+          <tr><th>항목</th><th>GYUL LOCAL</th><th>스티로폼</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>친환경성</td><td class="good">우수</td><td class="bad">낮음</td></tr>
+          <tr><td>생분해성</td><td class="good">완전 분해</td><td class="bad">분해 불가</td></tr>
+          <tr><td>지역 자원 활용</td><td class="good">제주산 100%</td><td class="bad">해당 없음</td></tr>
+          <tr><td>충격 흡수</td><td>기본 수준</td><td class="good">우수</td></tr>
+          <tr><td>내구성</td><td>개선 중</td><td class="good">높음</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGE -->
+<section id="challenge">
+  <div class="reveal">
+    <p class="section-label">Challenge</p>
+    <h2 class="section-title">상용화를 위한 과제들</h2>
+    <p class="section-body">현재 기술적·운영적 도전 과제를 파악하고 개선 방향을 탐색 중입니다.</p>
+  </div>
+  <div class="chal-list reveal">
+    <div class="chal-item">
+      <h4>높은 수분 함량</h4>
+      <p>감귤 껍질의 높은 초기 수분 함량이 건조 공정의 효율을 낮춥니다.</p>
+    </div>
+    <div class="chal-item">
+      <h4>보관 문제</h4>
+      <p>완성품의 습기 취약성으로 장기 보관 조건 설정이 필요합니다.</p>
+    </div>
+    <div class="chal-item">
+      <h4>생산 효율</h4>
+      <p>수작업 중심 공정의 자동화 및 대량 생산 체계 구축이 과제입니다.</p>
+    </div>
+    <div class="chal-item">
+      <h4>내구성</h4>
+      <p>반복 충격에 대한 내구성 개선을 통해 상업용 규격을 충족해야 합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="reveal">
+    <p class="section-label">Impact</p>
+    <h2 class="section-title">우리가 만들고자 하는 변화</h2>
+  </div>
+  <div class="impact-nums reveal">
+    <div class="impact-item">
+      <p class="impact-label">감귤 폐기물</p>
+      <p class="impact-desc">매년 발생하는 감귤 부산물을 자원으로 전환해 폐기물을 감소시킵니다.</p>
+    </div>
+    <div class="impact-item">
+      <p class="impact-label">플라스틱 대체</p>
+      <p class="impact-desc">스티로폼·플라스틱 완충재 수요를 줄여 포장 폐기물을 낮춥니다.</p>
+    </div>
+    <div class="impact-item">
+      <p class="impact-label">지역 자원 순환</p>
+      <p class="impact-desc">제주 내 자원을 제주 내에서 순환시키는 로컬 경제 모델을 구축합니다.</p>
+    </div>
+    <div class="impact-item">
+      <p class="impact-label">친환경 시장</p>
+      <p class="impact-desc">친환경 포장재 시장 확대에 기여하는 실질적 대안을 제시합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUTURE -->
+<section id="future" style="background:var(--bark); color:var(--white);">
+  <div class="reveal">
+    <p class="section-label" style="color:var(--peel);">Future</p>
+    <h2 class="section-title" style="color:var(--white);">앞으로의 방향</h2>
+    <p class="section-body" style="color:rgba(255,255,255,.6);">현재의 프로토타입을 넘어 실질적인 상용화를 목표로 연구를 이어갑니다.</p>
+  </div>
+  <ul class="future-list reveal">
+    <li>내구성 개선 — 반복 충격과 하중에 견딜 수 있는 소재 배합 연구</li>
+    <li>방수성 강화 — 습기에 취약한 현 단점을 극복하는 코팅 기술 도입</li>
+    <li>생산 공정 효율화 — 자동화 및 대량 생산 체계 구축</li>
+    <li>기업 적용 연구 — 실제 포장 물류 현장에서의 파일럿 테스트 진행</li>
+    <li>상용화 로드맵 — 제주 기반 스타트업 및 기관과의 협력 모델 개발</li>
+  </ul>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>GYUL LOCAL</strong> — 제주의 감귤, 지역의 가치가 되다</p>
+  <p style="margin-top:.5rem;">제주국립대학교 &nbsp;·&nbsp; Eco Packaging Research Project</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
